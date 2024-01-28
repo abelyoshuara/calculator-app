@@ -58,6 +58,15 @@ export default function App() {
     }
   }
 
+  function handleAllClear() {
+    setResult("0");
+    setFirstDigit("0");
+    setSecondDigit("");
+    setOperator("");
+    setWaitingSecondDigit(false);
+    setIsAlreadySetOperator(false);
+  }
+
   return (
     <div className="container my-16">
       <h1 className="text-slate-700 text-4xl font-bold text-center mt-20 mb-8">
@@ -147,7 +156,9 @@ export default function App() {
           </button>
         </div>
         <div className="flex gap-3">
-          <button className="btn-primary">AC</button>
+          <button className="btn-primary" onClick={handleAllClear}>
+            AC
+          </button>
           <button
             className="btn-primary basis-[50%]"
             onClick={() => handleUpdateDigit("0")}
