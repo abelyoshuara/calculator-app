@@ -45,6 +45,19 @@ export default function App() {
     setSecondDigit("");
   }
 
+  function inverseNumber() {
+    if (firstDigit === "0" || secondDigit === "0") return;
+    if (!waitingSecondDigit) {
+      const num = parseInt(firstDigit) * -1;
+      setFirstDigit(num.toString());
+      setResult(num.toString());
+    } else {
+      const num = parseInt(secondDigit) * -1;
+      setSecondDigit(num.toString());
+      setResult(num.toString());
+    }
+  }
+
   return (
     <div className="container my-16">
       <h1 className="text-slate-700 text-4xl font-bold text-center mt-20 mb-8">
@@ -74,7 +87,9 @@ export default function App() {
           >
             9
           </button>
-          <button className="btn-primary negative">+/-</button>
+          <button className="btn-primary negative" onClick={inverseNumber}>
+            +/-
+          </button>
         </div>
         <div className="flex gap-3">
           <button
