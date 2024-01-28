@@ -11,11 +11,13 @@ export default function App() {
 
   function handleUpdateDigit(data: string) {
     if (!waitingSecondDigit) {
-      setFirstDigit(firstDigit + data);
-      setResult(firstDigit + data);
+      const newNum = (firstDigit + data).replace("0", "");
+      setFirstDigit(newNum.toString());
+      setResult(newNum.toString());
     } else {
-      setSecondDigit(secondDigit + data);
-      setResult(secondDigit + data);
+      const newNum = (secondDigit + data).replace("0", "");
+      setSecondDigit(newNum.toString());
+      setResult(newNum.toString());
     }
   }
 
