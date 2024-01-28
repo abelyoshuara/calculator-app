@@ -45,7 +45,7 @@ export default function App() {
     setSecondDigit("");
   }
 
-  function inverseNumber() {
+  function handleInverseNumber() {
     if (firstDigit === "0" || secondDigit === "0") return;
     if (!waitingSecondDigit) {
       const num = parseInt(firstDigit) * -1;
@@ -87,7 +87,10 @@ export default function App() {
           >
             9
           </button>
-          <button className="btn-primary negative" onClick={inverseNumber}>
+          <button
+            className="btn-primary negative"
+            onClick={handleInverseNumber}
+          >
             +/-
           </button>
         </div>
