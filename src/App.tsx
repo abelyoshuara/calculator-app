@@ -26,15 +26,28 @@ export default function App() {
 
   function handleOperator(data: string): void {
     if (isAlreadySetOperator) {
-      if (operator === "+") {
-        const res: number = parseInt(firstDigit) + parseInt(secondDigit);
-        setResult(res.toString());
-      }
+      alert("Operator is already");
     }
 
     setOperator(data);
     setIsAlreadySetOperator(true);
     setWaitingSecondDigit(true);
+  }
+
+  function handleCalculate() {
+    let res = 0;
+
+    if (operator === "+") {
+      res = parseInt(firstDigit) + parseInt(secondDigit);
+    } else if (operator === "-") {
+      res = parseInt(firstDigit) - parseInt(secondDigit);
+    }
+
+    setResult(res.toString());
+    setFirstDigit(res.toString());
+    setOperator("");
+    setIsAlreadySetOperator(false);
+    setSecondDigit("");
   }
 
   return (
@@ -129,7 +142,9 @@ export default function App() {
             >
               0
             </button>
-            <button className="btn-primary operator">=</button>
+            <button className="btn-primary operator" onClick={handleCalculate}>
+              =
+            </button>
           </div>
         </div>
       </div>
