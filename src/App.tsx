@@ -6,7 +6,7 @@ export default function App() {
           Caculator App
         </h1>
 
-        <div className="flex flex-col gap-y-3 border shadow-sm p-4 rounded-lg">
+        <div className="max-w-xl mx-auto flex flex-col gap-y-3 border shadow-sm p-4 rounded-lg">
           <div className="bg-slate-800 w-full p-10 rounded-lg text-slate-100 text-end text-[1.3rem] font-semibold">
             <span>0</span>
           </div>
