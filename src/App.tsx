@@ -58,6 +58,12 @@ export default function App() {
     setWaitingForSecondNumber(false);
   }
 
+  function handleDelete() {
+    const newDigits =
+      digit.length - 1 === 0 ? "0" : digit.slice(0, digit.length - 1);
+    setDigit(newDigits);
+  }
+
   return (
     <div className="container my-16">
       <h1 className="text-slate-700 text-4xl font-bold text-center mt-20 mb-8">
@@ -72,7 +78,9 @@ export default function App() {
           <button className="btn btn-primary" onClick={handleAllClear}>
             AC
           </button>
-          <button className="btn btn-primary">DEL</button>
+          <button className="btn btn-primary" onClick={handleDelete}>
+            DEL
+          </button>
           <button className="btn btn-primary" onClick={handleInverseNumber}>
             +/-
           </button>
