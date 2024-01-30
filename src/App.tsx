@@ -50,6 +50,10 @@ export default function App() {
       result = Number(firstNumber) + Number(digit);
     } else if (operator === "-") {
       result = Number(firstNumber) - Number(digit);
+    } else if (operator === "*") {
+      result = Number(firstNumber) * Number(digit);
+    } else if (operator === "/") {
+      result = Number(firstNumber) / Number(digit);
     }
 
     setDigit(result.toString());
