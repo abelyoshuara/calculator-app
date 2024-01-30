@@ -180,7 +180,12 @@ export default function App() {
           >
             0
           </button>
-          <button className="btn btn-primary">.</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => handleInputDigit(".")}
+          >
+            .
+          </button>
           <button className="btn btn-secondary" onClick={handleCalculate}>
             =
           </button>
