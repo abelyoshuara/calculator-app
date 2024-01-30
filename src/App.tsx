@@ -69,6 +69,21 @@ export default function App() {
           <span id="displayNumber">{digit}</span>
         </div>
         <div className="flex gap-3">
+          <button className="btn btn-primary" onClick={handleAllClear}>
+            AC
+          </button>
+          <button className="btn btn-primary">DEL</button>
+          <button className="btn btn-primary" onClick={handleInverseNumber}>
+            +/-
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => handleOperator("/")}
+          >
+            /
+          </button>
+        </div>
+        <div className="flex gap-3">
           <button
             className="btn btn-primary"
             onClick={() => handleInputDigit("7")}
@@ -87,8 +102,11 @@ export default function App() {
           >
             9
           </button>
-          <button className="btn btn-secondary" onClick={handleInverseNumber}>
-            +/-
+          <button
+            className="btn btn-secondary"
+            onClick={() => handleOperator("*")}
+          >
+            *
           </button>
         </div>
         <div className="flex gap-3">
@@ -144,15 +162,13 @@ export default function App() {
           </button>
         </div>
         <div className="flex gap-3">
-          <button className="btn btn-primary" onClick={handleAllClear}>
-            AC
-          </button>
           <button
-            className="btn btn-primary basis-[50%]"
+            className="btn btn-primary basis-[53%]"
             onClick={() => handleInputDigit("0")}
           >
             0
           </button>
+          <button className="btn btn-primary">.</button>
           <button className="btn btn-secondary" onClick={handleCalculate}>
             =
           </button>
