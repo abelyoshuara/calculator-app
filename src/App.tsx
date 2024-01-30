@@ -148,7 +148,7 @@ export default function App() {
             AC
           </button>
           <button
-            className="btn-primary basis-[50%]"
+            className="btn btn-primary basis-[50%]"
             onClick={() => handleInputDigit("0")}
           >
             0
