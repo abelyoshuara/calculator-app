@@ -1,72 +1,61 @@
 import { useState } from "react";
 
 export default function App() {
-  const [result, setResult] = useState<string>("0");
-  const [firstDigit, setFirstDigit] = useState<string>("");
-  const [secondDigit, setSecondDigit] = useState<string>("");
+  const [digit, setDigit] = useState<string>("0");
   const [operator, setOperator] = useState<string>("");
-  const [waitingSecondDigit, setWaitingSecondDigit] = useState<boolean>(false);
-  const [isAlreadySetOperator, setIsAlreadySetOperator] =
+  const [firstNumber, setFirstNumber] = useState<string>("");
+  const [waitingForSecondNumber, setWaitingForSecondNumber] =
     useState<boolean>(false);
 
-  function handleUpdateDigit(data: string) {
-    if (!waitingSecondDigit) {
-      const newNum = (firstDigit + data).replace("0", "");
-      setFirstDigit(newNum.toString());
-      setResult(newNum.toString());
+  function handleInputDigit(data: string) {
+    if (digit === "0" || waitingForSecondNumber) {
+      setDigit(data);
+      if (waitingForSecondNumber) setWaitingForSecondNumber(false);
     } else {
-      const newNum = (secondDigit + data).replace("0", "");
-      setSecondDigit(newNum.toString());
-      setResult(newNum.toString());
+      setDigit(digit + data);
     }
-  }
-
-  function handleOperator(data: string): void {
-    if (isAlreadySetOperator) {
-      alert("Operator is already");
-    }
-
-    setOperator(data);
-    setIsAlreadySetOperator(true);
-    setWaitingSecondDigit(true);
-  }
-
-  function handleCalculate() {
-    let res = 0;
-
-    if (operator === "+") {
-      res = parseInt(firstDigit) + parseInt(secondDigit);
-    } else if (operator === "-") {
-      res = parseInt(firstDigit) - parseInt(secondDigit);
-    }
-
-    setResult(res.toString());
-    setFirstDigit(res.toString());
-    setOperator("");
-    setIsAlreadySetOperator(false);
-    setSecondDigit("");
   }
 
   function handleInverseNumber() {
-    if (firstDigit === "0" || secondDigit === "0") return;
-    if (!waitingSecondDigit) {
-      const num = parseInt(firstDigit) * -1;
-      setFirstDigit(num.toString());
-      setResult(num.toString());
-    } else {
-      const num = parseInt(secondDigit) * -1;
-      setSecondDigit(num.toString());
-      setResult(num.toString());
+    if (digit !== "0") {
+      const num = Number(digit) * -1;
+      setDigit(num.toString());
     }
   }
 
   function handleAllClear() {
-    setResult("0");
-    setFirstDigit("0");
-    setSecondDigit("");
+    setDigit("0");
     setOperator("");
-    setWaitingSecondDigit(false);
-    setIsAlreadySetOperator(false);
+    setFirstNumber("");
+    setWaitingForSecondNumber(false);
+  }
+
+  function handleOperator(data: string) {
+    if (operator !== "") {
+      return alert("Operator is already defined");
+    }
+
+    setOperator(data);
+    setFirstNumber(digit);
+    setWaitingForSecondNumber(true);
+  }
+
+  function handleCalculate() {
+    if (operator === "") {
+      return alert("Operator is not asign yet");
+    }
+
+    let result: number = 0;
+    if (operator === "+") {
+      result = Number(firstNumber) + Number(digit);
+    } else if (operator === "-") {
+      result = Number(firstNumber) - Number(digit);
+    }
+
+    setDigit(result.toString());
+    setOperator("");
+    setFirstNumber(result.toString());
+    setWaitingForSecondNumber(false);
   }
 
   return (
@@ -77,55 +66,52 @@ export default function App() {
 
       <div className="max-w-xl mx-auto flex flex-col gap-y-3 border shadow-sm p-4 rounded-lg">
         <div className="bg-slate-800 w-full p-10 rounded-lg text-slate-100 text-end text-[1.3rem] font-semibold">
-          <span id="displayNumber">{result}</span>
+          <span id="displayNumber">{digit}</span>
         </div>
         <div className="flex gap-3">
           <button
-            className="btn-primary"
-            onClick={() => handleUpdateDigit("7")}
+            className="btn btn-primary"
+            onClick={() => handleInputDigit("7")}
           >
             7
           </button>
           <button
-            className="btn-primary"
-            onClick={() => handleUpdateDigit("8")}
+            className="btn btn-primary"
+            onClick={() => handleInputDigit("8")}
           >
             8
           </button>
           <button
-            className="btn-primary"
-            onClick={() => handleUpdateDigit("9")}
+            className="btn btn-primary"
+            onClick={() => handleInputDigit("9")}
           >
             9
           </button>
-          <button
-            className="btn-primary negative"
-            onClick={handleInverseNumber}
-          >
+          <button className="btn btn-secondary" onClick={handleInverseNumber}>
             +/-
           </button>
         </div>
         <div className="flex gap-3">
           <button
-            className="btn-primary"
-            onClick={() => handleUpdateDigit("4")}
+            className="btn btn-primary"
+            onClick={() => handleInputDigit("4")}
           >
             4
           </button>
           <button
-            className="btn-primary"
-            onClick={() => handleUpdateDigit("5")}
+            className="btn btn-primary"
+            onClick={() => handleInputDigit("5")}
           >
             5
           </button>
           <button
-            className="btn-primary"
-            onClick={() => handleUpdateDigit("6")}
+            className="btn btn-primary"
+            onClick={() => handleInputDigit("6")}
           >
             6
           </button>
           <button
-            className="btn-primary operator"
+            className="btn btn-secondary"
             onClick={() => handleOperator("-")}
           >
             -
@@ -133,41 +119,41 @@ export default function App() {
         </div>
         <div className="flex gap-3">
           <button
-            className="btn-primary"
-            onClick={() => handleUpdateDigit("1")}
+            className="btn btn-primary"
+            onClick={() => handleInputDigit("1")}
           >
             1
           </button>
           <button
-            className="btn-primary"
-            onClick={() => handleUpdateDigit("2")}
+            className="btn btn-primary"
+            onClick={() => handleInputDigit("2")}
           >
             2
           </button>
           <button
-            className="btn-primary"
-            onClick={() => handleUpdateDigit("3")}
+            className="btn btn-primary"
+            onClick={() => handleInputDigit("3")}
           >
             3
           </button>
           <button
-            className="btn-primary operator"
+            className="btn btn-secondary"
             onClick={() => handleOperator("+")}
           >
             +
           </button>
         </div>
         <div className="flex gap-3">
-          <button className="btn-primary" onClick={handleAllClear}>
+          <button className="btn btn-primary" onClick={handleAllClear}>
             AC
           </button>
           <button
             className="btn-primary basis-[50%]"
-            onClick={() => handleUpdateDigit("0")}
+            onClick={() => handleInputDigit("0")}
           >
             0
           </button>
-          <button className="btn-primary operator" onClick={handleCalculate}>
+          <button className="btn btn-secondary" onClick={handleCalculate}>
             =
           </button>
         </div>
