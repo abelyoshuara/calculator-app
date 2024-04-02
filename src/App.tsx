@@ -7,7 +7,7 @@ export default function App() {
   const [waitingForSecondNumber, setWaitingForSecondNumber] =
     useState<boolean>(false);
 
-  function handleInputDigit(data: string) {
+  function handleAddDigit(data: string) {
     if (digit === "0" || waitingForSecondNumber) {
       setDigit(data);
       if (waitingForSecondNumber) setWaitingForSecondNumber(false);
@@ -62,7 +62,7 @@ export default function App() {
     setWaitingForSecondNumber(false);
   }
 
-  function handleDelete() {
+  function handleDeleteDigit() {
     const newDigits =
       digit.length - 1 === 0 ? "0" : digit.slice(0, digit.length - 1);
     setDigit(newDigits);
@@ -82,7 +82,7 @@ export default function App() {
           <button className="btn btn-primary" onClick={handleAllClear}>
             AC
           </button>
-          <button className="btn btn-primary" onClick={handleDelete}>
+          <button className="btn btn-primary" onClick={handleDeleteDigit}>
             DEL
           </button>
           <button className="btn btn-primary" onClick={handleInverseNumber}>
@@ -98,19 +98,19 @@ export default function App() {
         <div className="flex gap-3">
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit("7")}
+            onClick={() => handleAddDigit("7")}
           >
             7
           </button>
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit("8")}
+            onClick={() => handleAddDigit("8")}
           >
             8
           </button>
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit("9")}
+            onClick={() => handleAddDigit("9")}
           >
             9
           </button>
@@ -124,19 +124,19 @@ export default function App() {
         <div className="flex gap-3">
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit("4")}
+            onClick={() => handleAddDigit("4")}
           >
             4
           </button>
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit("5")}
+            onClick={() => handleAddDigit("5")}
           >
             5
           </button>
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit("6")}
+            onClick={() => handleAddDigit("6")}
           >
             6
           </button>
@@ -150,19 +150,19 @@ export default function App() {
         <div className="flex gap-3">
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit("1")}
+            onClick={() => handleAddDigit("1")}
           >
             1
           </button>
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit("2")}
+            onClick={() => handleAddDigit("2")}
           >
             2
           </button>
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit("3")}
+            onClick={() => handleAddDigit("3")}
           >
             3
           </button>
@@ -176,13 +176,13 @@ export default function App() {
         <div className="flex gap-3">
           <button
             className="btn btn-primary basis-[53%]"
-            onClick={() => handleInputDigit("0")}
+            onClick={() => handleAddDigit("0")}
           >
             0
           </button>
           <button
             className="btn btn-primary"
-            onClick={() => handleInputDigit(".")}
+            onClick={() => handleAddDigit(".")}
           >
             .
           </button>
