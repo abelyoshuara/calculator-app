@@ -1,4 +1,4 @@
-import type { Caculator } from "../types/Caculator";
+import type { Calculator } from "../types/Calculator";
 
 export type Action =
   | { type: "ADD_DIGIT"; payload: { digit: string } }
@@ -8,15 +8,15 @@ export type Action =
   | { type: "SET_OPERATOR"; payload: { operator: string } }
   | { type: "CALCULATE" };
 
-const initialCaculator: Caculator = {
+const initialCalculator: Calculator = {
   digit: "0",
   operator: "",
   firstNumber: "",
   waitingForSecondNumber: false,
 };
 
-// function caculatorReducer(caculator: Caculator, action: Action): Caculator {
-function caculatorReducer(caculator: Caculator, action: Action) {
+// function calculatorReducer(caculator: Calculator, action: Action): Calculator {
+function calculatorReducer(caculator: Calculator, action: Action) {
   switch (action.type) {
     case "ADD_DIGIT": {
       const { digit, waitingForSecondNumber } = caculator;
@@ -123,4 +123,4 @@ function caculatorReducer(caculator: Caculator, action: Action) {
   }
 }
 
-export { caculatorReducer, initialCaculator };
+export { calculatorReducer, initialCalculator };

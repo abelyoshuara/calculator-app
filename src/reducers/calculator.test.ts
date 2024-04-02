@@ -1,7 +1,7 @@
 /**
- * test scenario for caculatorReducer
+ * test scenario for calculatorReducer
  *
- * - caculatorReducer function:
+ * - calculatorReducer function:
  *  - should return the initial state
  *  - should return the caculator with the update state when given by ADD_DIGIT action
  *  - should return the caculator with the update state when given by DELETE_DIGIT action
@@ -12,9 +12,9 @@
  *
  */
 
-import { Action, caculatorReducer, initialCaculator } from "./caculator";
+import { Action, calculatorReducer, initialCalculator } from "./calculator";
 
-describe("caculatorReducer function", () => {
+describe("calculatorReducer function", () => {
   it("should return the initial state", () => {
     const initialState = {
       digit: "0",
@@ -22,7 +22,7 @@ describe("caculatorReducer function", () => {
       firstNumber: "",
       waitingForSecondNumber: false,
     };
-    expect(initialCaculator).toEqual(initialState);
+    expect(initialCalculator).toEqual(initialState);
   });
 
   it("should return the caculator with the update state when given by ADD_DIGIT action", () => {
@@ -40,7 +40,7 @@ describe("caculatorReducer function", () => {
       },
     } as Action;
 
-    const nextState = caculatorReducer(initialState, action);
+    const nextState = calculatorReducer(initialState, action);
 
     if (action.type === "ADD_DIGIT" && action.payload) {
       expect(nextState).toEqual({
@@ -61,7 +61,7 @@ describe("caculatorReducer function", () => {
     };
 
     const action = { type: "DELETE_DIGIT" } as Action;
-    const nextState = caculatorReducer(initialState, action);
+    const nextState = calculatorReducer(initialState, action);
 
     if (action.type === "DELETE_DIGIT") {
       const subtraction: number = initialState.digit.includes("-") ? 2 : 1;
@@ -88,7 +88,7 @@ describe("caculatorReducer function", () => {
     };
 
     const action = { type: "INVERSE_NUMBER" } as Action;
-    const nextState = caculatorReducer(initialState, action);
+    const nextState = calculatorReducer(initialState, action);
 
     if (action.type === "INVERSE_NUMBER") {
       expect(nextState).toEqual({
@@ -109,7 +109,7 @@ describe("caculatorReducer function", () => {
     };
 
     const action = { type: "ALL_CLEAR" } as Action;
-    const nextState = caculatorReducer(initialState, action);
+    const nextState = calculatorReducer(initialState, action);
 
     if (action.type === "ALL_CLEAR") {
       expect(nextState).toEqual({
@@ -138,7 +138,7 @@ describe("caculatorReducer function", () => {
       },
     } as Action;
 
-    const nextState = caculatorReducer(initialState, action);
+    const nextState = calculatorReducer(initialState, action);
 
     if (action.type === "SET_OPERATOR" && action.payload) {
       expect(nextState).toEqual({
@@ -161,7 +161,7 @@ describe("caculatorReducer function", () => {
     };
 
     const action = { type: "CALCULATE" } as Action;
-    const nextState = caculatorReducer(initialState, action);
+    const nextState = calculatorReducer(initialState, action);
 
     if (action.type === "CALCULATE") {
       const { operator, digit, firstNumber, waitingForSecondNumber } =

@@ -1,12 +1,15 @@
 import { useReducer } from "react";
 import {
   Action,
-  caculatorReducer,
-  initialCaculator,
-} from "./reducers/caculator";
+  calculatorReducer,
+  initialCalculator,
+} from "./reducers/calculator";
 
 export default function App() {
-  const [caculator, dispatch] = useReducer(caculatorReducer, initialCaculator);
+  const [calculator, dispatch] = useReducer(
+    calculatorReducer,
+    initialCalculator,
+  );
 
   const handleAddDigit = (digit: string) => {
     dispatch({
@@ -45,13 +48,13 @@ export default function App() {
   return (
     <div className="container my-16">
       <h1 className="text-slate-700 text-4xl font-bold text-center mt-20 mb-8">
-        Caculator App
+        Calculator App
       </h1>
 
       <div className="max-w-xl mx-auto flex flex-col gap-y-3 border shadow-sm p-4 rounded-lg">
         <div className="bg-slate-800 w-full p-10 rounded-lg text-slate-100 text-end text-[1.3rem] font-semibold">
           <span id="displayNumber" data-testid="displayNumber">
-            {caculator.digit}
+            {calculator.digit}
           </span>
         </div>
         <div className="flex gap-3">

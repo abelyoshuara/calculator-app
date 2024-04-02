@@ -2,7 +2,7 @@
  * test scenario for App component
  *
  * - App component
- *   - should render caculator correctly
+ *   - should render calculator correctly
  *   - should handle addition correctly
  *   - should handle subtraction correctly
  *   - should handle multiplication correctly
@@ -13,10 +13,10 @@ import App from "./App";
 import { render, screen, userEvent } from "./utils/test-utils";
 
 describe("App component", () => {
-  it("should render caculator correctly", () => {
+  it("should render calculator correctly", () => {
     render(<App />);
 
-    const title = screen.getByText(/caculator app/i);
+    const title = screen.getByText(/calculator app/i);
     expect(title).toBeInTheDocument();
 
     const displayNumber = screen.getByTestId("displayNumber");
