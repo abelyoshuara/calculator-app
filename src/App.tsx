@@ -1,46 +1,73 @@
 import { useState } from "react";
 
 export default function App() {
-  const [digit, setDigit] = useState<string>("0");
-  const [operator, setOperator] = useState<string>("");
-  const [firstNumber, setFirstNumber] = useState<string>("");
-  const [waitingForSecondNumber, setWaitingForSecondNumber] =
-    useState<boolean>(false);
+  const [caculator, setCaculator] = useState({
+    digit: "0",
+    operator: "",
+    firstNumber: "",
+    waitingForSecondNumber: false,
+  });
 
-  function handleAddDigit(data: string) {
+  const handleAddDigit = (data: string) => {
+    const { digit, waitingForSecondNumber } = caculator;
+
     if (digit === "0" || waitingForSecondNumber) {
-      setDigit(data);
-      if (waitingForSecondNumber) setWaitingForSecondNumber(false);
+      setCaculator((prevState) => ({
+        ...prevState,
+        digit: data,
+      }));
+
+      if (waitingForSecondNumber)
+        setCaculator((prevState) => ({
+          ...prevState,
+          waitingForSecondNumber: !prevState.waitingForSecondNumber,
+        }));
     } else {
-      setDigit(digit + data);
+      setCaculator((prevState) => ({
+        ...prevState,
+        digit: digit + data,
+      }));
     }
-  }
+  };
 
   function handleInverseNumber() {
+    const { digit } = caculator;
+
     if (digit !== "0") {
       const num = Number(digit) * -1;
-      setDigit(num.toString());
+      setCaculator((prevState) => ({
+        ...prevState,
+        digit: num.toString(),
+      }));
     }
   }
 
   function handleAllClear() {
-    setDigit("0");
-    setOperator("");
-    setFirstNumber("");
-    setWaitingForSecondNumber(false);
+    setCaculator({
+      digit: "0",
+      operator: "",
+      firstNumber: "",
+      waitingForSecondNumber: false,
+    });
   }
 
   function handleOperator(data: string) {
+    const { digit, operator } = caculator;
     if (operator !== "") {
       return alert("Operator is already defined");
     }
 
-    setOperator(data);
-    setFirstNumber(digit);
-    setWaitingForSecondNumber(true);
+    setCaculator((prevState) => ({
+      ...prevState,
+      operator: data,
+      firstNumber: digit,
+      waitingForSecondNumber: !prevState.waitingForSecondNumber,
+    }));
   }
 
   function handleCalculate() {
+    const { digit, operator, firstNumber } = caculator;
+
     if (operator === "") {
       return alert("Operator is not asign yet");
     }
@@ -56,16 +83,24 @@ export default function App() {
       result = Number(firstNumber) / Number(digit);
     }
 
-    setDigit(result.toString());
-    setOperator("");
-    setFirstNumber(result.toString());
-    setWaitingForSecondNumber(false);
+    setCaculator((prevState) => ({
+      ...prevState,
+      digit: result.toString(),
+      operator: "",
+      firstNumber: result.toString(),
+      waitingForSecondNumber: !prevState.waitingForSecondNumber,
+    }));
   }
 
   function handleDeleteDigit() {
+    const { digit } = caculator;
     const newDigits =
       digit.length - 1 === 0 ? "0" : digit.slice(0, digit.length - 1);
-    setDigit(newDigits);
+
+    setCaculator((prevState) => ({
+      ...prevState,
+      digit: newDigits,
+    }));
   }
 
   return (
@@ -76,7 +111,7 @@ export default function App() {
 
       <div className="max-w-xl mx-auto flex flex-col gap-y-3 border shadow-sm p-4 rounded-lg">
         <div className="bg-slate-800 w-full p-10 rounded-lg text-slate-100 text-end text-[1.3rem] font-semibold">
-          <span id="displayNumber">{digit}</span>
+          <span id="displayNumber">{caculator.digit}</span>
         </div>
         <div className="flex gap-3">
           <button className="btn btn-primary" onClick={handleAllClear}>
