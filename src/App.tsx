@@ -95,8 +95,9 @@ export default function App() {
 
   function handleDeleteDigit() {
     const { digit } = caculator;
+    const subtraction: number = digit.includes("-") ? 2 : 1;
     const newDigits =
-      digit.length - 1 === 0 ? "0" : digit.slice(0, digit.length - 1);
+      digit.length - subtraction === 0 ? "0" : digit.slice(0, digit.length - 1);
 
     setCaculator((prevState) => ({
       ...prevState,
