@@ -1,109 +1,46 @@
-import { useState } from "react";
-import type { Caculator } from "./types/Caculator";
+import { useReducer } from "react";
+import {
+  Action,
+  caculatorReducer,
+  initialCaculator,
+} from "./reducers/caculator";
 
 export default function App() {
-  const [caculator, setCaculator] = useState<Caculator>({
-    digit: "0",
-    operator: "",
-    firstNumber: "",
-    waitingForSecondNumber: false,
-  });
+  const [caculator, dispatch] = useReducer(caculatorReducer, initialCaculator);
 
-  const handleAddDigit = (data: string) => {
-    const { digit, waitingForSecondNumber } = caculator;
-
-    if (digit === "0" || waitingForSecondNumber) {
-      setCaculator((prevState) => ({
-        ...prevState,
-        digit: data,
-      }));
-
-      if (waitingForSecondNumber)
-        setCaculator((prevState) => ({
-          ...prevState,
-          waitingForSecondNumber: !prevState.waitingForSecondNumber,
-        }));
-    } else {
-      setCaculator((prevState) => ({
-        ...prevState,
-        digit: digit + data,
-      }));
-    }
+  const handleAddDigit = (digit: string) => {
+    dispatch({
+      type: "ADD_DIGIT",
+      payload: {
+        digit,
+      },
+    } as Action);
   };
 
-  function handleInverseNumber() {
-    const { digit } = caculator;
+  const handleInverseNumber = () => {
+    dispatch({ type: "INVERSE_NUMBER" } as Action);
+  };
 
-    if (digit !== "0") {
-      const num = Number(digit) * -1;
-      setCaculator((prevState) => ({
-        ...prevState,
-        digit: num.toString(),
-      }));
-    }
-  }
+  const handleAllClear = () => {
+    dispatch({ type: "ALL_CLEAR" } as Action);
+  };
 
-  function handleAllClear() {
-    setCaculator({
-      digit: "0",
-      operator: "",
-      firstNumber: "",
-      waitingForSecondNumber: false,
-    });
-  }
+  const handleSetOperator = (operator: string) => {
+    dispatch({
+      type: "SET_OPERATOR",
+      payload: {
+        operator,
+      },
+    } as Action);
+  };
 
-  function handleOperator(data: string) {
-    const { digit, operator } = caculator;
-    if (operator !== "") {
-      return alert("Operator is already defined");
-    }
+  const handleCalculate = () => {
+    dispatch({ type: "CALCULATE" } as Action);
+  };
 
-    setCaculator((prevState) => ({
-      ...prevState,
-      operator: data,
-      firstNumber: digit,
-      waitingForSecondNumber: !prevState.waitingForSecondNumber,
-    }));
-  }
-
-  function handleCalculate() {
-    const { digit, operator, firstNumber } = caculator;
-
-    if (operator === "") {
-      return alert("Operator is not asign yet");
-    }
-
-    let result: number = 0;
-    if (operator === "+") {
-      result = Number(firstNumber) + Number(digit);
-    } else if (operator === "-") {
-      result = Number(firstNumber) - Number(digit);
-    } else if (operator === "*") {
-      result = Number(firstNumber) * Number(digit);
-    } else if (operator === "/") {
-      result = Number(firstNumber) / Number(digit);
-    }
-
-    setCaculator((prevState) => ({
-      ...prevState,
-      digit: result.toString(),
-      operator: "",
-      firstNumber: result.toString(),
-      waitingForSecondNumber: !prevState.waitingForSecondNumber,
-    }));
-  }
-
-  function handleDeleteDigit() {
-    const { digit } = caculator;
-    const subtraction: number = digit.includes("-") ? 2 : 1;
-    const newDigits =
-      digit.length - subtraction === 0 ? "0" : digit.slice(0, digit.length - 1);
-
-    setCaculator((prevState) => ({
-      ...prevState,
-      digit: newDigits,
-    }));
-  }
+  const handleDeleteDigit = () => {
+    dispatch({ type: "DELETE_DIGIT" } as Action);
+  };
 
   return (
     <div className="container my-16">
@@ -127,7 +64,7 @@ export default function App() {
           </button>
           <button
             className="btn btn-secondary"
-            onClick={() => handleOperator("/")}
+            onClick={() => handleSetOperator("/")}
           >
             /
           </button>
@@ -153,7 +90,7 @@ export default function App() {
           </button>
           <button
             className="btn btn-secondary"
-            onClick={() => handleOperator("*")}
+            onClick={() => handleSetOperator("*")}
           >
             *
           </button>
@@ -179,7 +116,7 @@ export default function App() {
           </button>
           <button
             className="btn btn-secondary"
-            onClick={() => handleOperator("-")}
+            onClick={() => handleSetOperator("-")}
           >
             -
           </button>
@@ -205,7 +142,7 @@ export default function App() {
           </button>
           <button
             className="btn btn-secondary"
-            onClick={() => handleOperator("+")}
+            onClick={() => handleSetOperator("+")}
           >
             +
           </button>
