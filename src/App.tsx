@@ -1,7 +1,8 @@
 import { useState } from "react";
+import type { Caculator } from "./types/Caculator";
 
 export default function App() {
-  const [caculator, setCaculator] = useState({
+  const [caculator, setCaculator] = useState<Caculator>({
     digit: "0",
     operator: "",
     firstNumber: "",
